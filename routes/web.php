@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\DashboardController; // Add this line to import the DashboardController
+use App\Http\Controllers\DashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,6 +27,19 @@ Route::post('/register', [RegisterController::class, 'register']);
 // Login routes
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [LoginController::class, 'login']);
-Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard')->middleware('auth'); // Corrected the route to use the controller directly
+Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard')->middleware('auth');
+
+// Subpage routes
+Route::get('/profile', function () {
+    return view('profile');
+})->name('profile')->middleware('auth');
+
+Route::get('/settings', function () {
+    return view('settings');
+})->name('settings')->middleware('auth');
+
+Route::get('/reports', function () {
+    return view('reports');
+})->name('reports')->middleware('auth');
 
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
